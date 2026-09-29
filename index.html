@@ -557,7 +557,9 @@
                     `;
                 });
             }
+            
 
+             // Render Breakdown Container (Kini benar-benar mengikuti filter dropdown kanan atas)
             const breakdownContainer = document.getElementById('breakdown-container');
             breakdownContainer.innerHTML = '';
             
@@ -566,13 +568,13 @@
                 if (!breakdownData[l.course]) {
                     breakdownData[l.course] = { total: 0, subjobs: {} };
                 }
-                breakdownData[l.course].total += (l.duration || 0);
-                breakdownData[l.course].subjobs[l.subjob] = (breakdownData[l.course].subjobs[l.subjob] || 0) + (l.duration || 0);
+                breakdownData[l.course].total += l.duration;
+                breakdownData[l.course].subjobs[l.subjob] = (breakdownData[l.course].subjobs[l.subjob] || 0) + l.duration;
             });
 
             const courseKeys = Object.keys(breakdownData);
             if (courseKeys.length === 0) {
-                breakdownContainer.innerHTML = `<div class="p-4 bg-slate-50 rounded-xl text-slate-400 text-xs text-center">Belum ada rincian jam kerja.</div>`;
+                breakdownContainer.innerHTML = `<div class="p-4 bg-slate-50 rounded-xl text-slate-400 text-xs text-center">Belum ada rincian jam kerja untuk filter ini.</div>`;
             } else {
                 courseKeys.forEach(course => {
                     const cData = breakdownData[course];
